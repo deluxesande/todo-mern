@@ -1,35 +1,81 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import EditModal from "./components/EditModal";
+import InputField from "./components/InputField";
+import Task from "./components/Task";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const tasks = [
+        {
+            id: "1",
+            name: "Dune",
+            completed: "false",
+        },
+        {
+            id: "2",
+            name: "Foundation",
+            completed: "false",
+        },
+        {
+            id: "3",
+            name: "1984",
+            completed: "false",
+        },
+        {
+            id: "4",
+            name: "Brave New World",
+            completed: "false",
+        },
+        {
+            id: "5",
+            name: "Fahrenheit 451",
+            completed: "false",
+        },
+        {
+            id: "6",
+            name: "Neuromancer",
+            completed: "false",
+        },
+        {
+            id: "7",
+            name: "The Hitchhiker's Guide to the Galaxy",
+            completed: "false",
+        },
+        {
+            id: "8",
+            name: "Ender's Game",
+            completed: "false",
+        },
+        {
+            id: "9",
+            name: "The Martian",
+            completed: "false",
+        },
+        {
+            id: "10",
+            name: "Snow Crash",
+            completed: "false",
+        },
+    ];
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    type Tasks = {
+        id: string;
+        name: string;
+        completed: string;
+    };
+
+    return (
+        <div className="main">
+            <div className="main-box">
+                <InputField />
+
+                {tasks.map((task: Tasks, index) => (
+                    <Task key={index} task={task} />
+                ))}
+            </div>
+
+            <EditModal />
+        </div>
+    );
 }
 
-export default App
+export default App;
