@@ -4,7 +4,7 @@ import EditModal from "./components/EditModal";
 import InputField from "./components/InputField";
 import Task from "./components/Task";
 
-const url = "http://localhost:3000";
+export const url = "http://localhost:3000";
 
 function App() {
     type Tasks = {
@@ -14,7 +14,7 @@ function App() {
         _v: number;
     };
     const [tasks, setTasks] = useState([]);
-    // const [fetching, setFetching] = useState(false);
+    const [fetching, setFetching] = useState(true);
 
     const fetchData = async () => {
         const response = await fetch(`${url}/api/v1/tasks/`, {
@@ -29,12 +29,13 @@ function App() {
 
     useEffect(() => {
         fetchData();
-    }, []);
+        setFetching(false);
+    }, [fetching]);
 
     return (
         <div className="main">
             <div className="main-box">
-                <InputField />
+                <InputField setFetching={setFetching} />
 
                 {tasks.map((task: Tasks, index) => (
                     <Task key={index} task={task} />
