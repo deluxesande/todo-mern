@@ -1,72 +1,92 @@
 const EditModal = () => {
     return (
         <>
-            <button
-                type="button"
-                className="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-                data-bs-whatever="@getbootstrap"
-            >
-                Open modal for @getbootstrap
-            </button>
-
             <div
                 className="modal fade"
-                id="exampleModal"
-                aria-labelledby="exampleModalLabel"
+                id="editModal"
+                aria-labelledby="editTask"
                 aria-hidden="true"
             >
                 <div className="modal-dialog">
                     <div className="modal-content">
-                        <div className="modal-header">
+                        <div
+                            style={{
+                                width: "100%",
+                                textAlign: "center",
+                                padding: "20px 0",
+                            }}
+                        >
                             <h1
                                 className="modal-title fs-5"
                                 id="exampleModalLabel"
+                                style={{
+                                    textTransform: "uppercase",
+                                    fontWeight: "bold",
+                                }}
                             >
-                                New message
+                                Edit Task
                             </h1>
+
+                            {/* Removed close button but left code just incase */}
                             <button
                                 type="button"
-                                className="btn-close"
+                                className="btn-close btn-sm"
                                 data-bs-dismiss="modal"
                                 aria-label="Close"
+                                style={{
+                                    position: "absolute",
+                                    top: "20px",
+                                    right: "20px",
+                                    fontSize: "14px",
+                                }}
                             ></button>
                         </div>
                         <div className="modal-body">
                             <form>
-                                <div className="mb-3">
-                                    <label className="col-form-label">
-                                        Recipient:
+                                <div className="myform-group mb-3">
+                                    <label
+                                        htmlFor="task-name"
+                                        className="col-form-label"
+                                    >
+                                        Task ID:
+                                    </label>
+                                    <p>Task id string</p>
+                                </div>
+                                <div className="myform-group mb-3">
+                                    <label
+                                        htmlFor="task-name"
+                                        className="col-form-label"
+                                    >
+                                        Name:
                                     </label>
                                     <input
                                         type="text"
-                                        className="form-control"
-                                        id="recipient-name"
+                                        className="form-control form-control-sm"
+                                        id="task-name"
                                     />
                                 </div>
-                                <div className="mb-3">
-                                    <label className="col-form-label">
-                                        Message:
+                                <div className="myform-group mb-3">
+                                    <label
+                                        htmlFor="completed"
+                                        className="col-form-label"
+                                    >
+                                        Completed:
                                     </label>
                                     <input
                                         type="text"
-                                        className="form-control"
-                                        id="recipient-name"
+                                        className="form-control form-control-sm"
+                                        id="completed"
                                     />
                                 </div>
                             </form>
                         </div>
-                        <div className="modal-footer">
+                        <div style={{ width: "100%", padding: "0 20px 20px" }}>
                             <button
-                                type="button"
-                                className="btn btn-secondary"
-                                data-bs-dismiss="modal"
+                                type="submit"
+                                style={{ width: "100%" }}
+                                className="btn btn-primary"
                             >
-                                Close
-                            </button>
-                            <button type="button" className="btn btn-primary">
-                                Send message
+                                Edit
                             </button>
                         </div>
                     </div>

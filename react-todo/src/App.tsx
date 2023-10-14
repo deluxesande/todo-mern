@@ -1,67 +1,35 @@
+import { useEffect, useState } from "react";
 import "./App.css";
 import EditModal from "./components/EditModal";
 import InputField from "./components/InputField";
 import Task from "./components/Task";
 
-function App() {
-    const tasks = [
-        {
-            id: "1",
-            name: "Dune",
-            completed: "false",
-        },
-        {
-            id: "2",
-            name: "Foundation",
-            completed: "false",
-        },
-        {
-            id: "3",
-            name: "1984",
-            completed: "false",
-        },
-        {
-            id: "4",
-            name: "Brave New World",
-            completed: "false",
-        },
-        {
-            id: "5",
-            name: "Fahrenheit 451",
-            completed: "false",
-        },
-        {
-            id: "6",
-            name: "Neuromancer",
-            completed: "false",
-        },
-        {
-            id: "7",
-            name: "The Hitchhiker's Guide to the Galaxy",
-            completed: "false",
-        },
-        {
-            id: "8",
-            name: "Ender's Game",
-            completed: "false",
-        },
-        {
-            id: "9",
-            name: "The Martian",
-            completed: "false",
-        },
-        {
-            id: "10",
-            name: "Snow Crash",
-            completed: "false",
-        },
-    ];
+const url = "http://localhost:3000";
 
+function App() {
     type Tasks = {
-        id: string;
+        _id: string;
         name: string;
-        completed: string;
+        completed: boolean;
+        _v: number;
     };
+    const [tasks, setTasks] = useState([]);
+    // const [fetching, setFetching] = useState(false);
+
+    const fetchData = async () => {
+        const response = await fetch(`${url}/api/v1/tasks/`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const data = await response.json();
+        setTasks(data.tasks);
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <div className="main">

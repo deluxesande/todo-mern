@@ -1,9 +1,16 @@
 const connectDB = require("./db/connect");
 const express = require("express");
 const errorHandlerMiddleware = require("./middleware/errorHandler");
+const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
+
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+    })
+);
 
 app.use(express.json());
 app.use("/api/v1/tasks", require("./routes/tasks"));
