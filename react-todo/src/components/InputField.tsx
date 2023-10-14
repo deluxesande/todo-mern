@@ -20,7 +20,7 @@ const InputField = ({ setFetching }: Props) => {
     };
 
     // Getting the input values
-    const send_create_task = (e: React.FormEvent) => {
+    const send_create_task = (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const input_tag = document.querySelector(
             "#task-entry"

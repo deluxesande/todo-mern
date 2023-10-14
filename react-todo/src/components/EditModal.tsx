@@ -1,4 +1,50 @@
-const EditModal = () => {
+import { useEffect, useState } from "react";
+import { url } from "../App";
+
+type Task = {
+    readonly _id: string;
+    name: string;
+    completed: boolean;
+    _v: number;
+};
+interface Props {
+    task: Task;
+    setFetching: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const EditModal = ({ task, setFetching }: Props) => {
+    const [checkValue, setCheckedValue] = useState(false);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setCheckedValue(e.target.checked);
+    };
+
+    const handleSubmit = () => {
+        const new_name = document.querySelector(
+            "#task-name"
+        ) as HTMLInputElement;
+        const new_name_value = new_name.value;
+
+        const new_task = {
+            name: new_name_value,
+            completed: checkValue,
+        };
+
+        fetch(`${url}/api/v1/tasks/${task._id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(new_task),
+        });
+
+        setFetching(true);
+    };
+
+    useEffect(() => {
+        setCheckedValue(task.completed);
+    }, [task.completed]);
+
     return (
         <>
             <div
@@ -50,7 +96,7 @@ const EditModal = () => {
                                     >
                                         Task ID:
                                     </label>
-                                    <p>Task id string</p>
+                                    <p>{task._id}</p>
                                 </div>
                                 <div className="myform-group mb-3">
                                     <label
@@ -63,6 +109,7 @@ const EditModal = () => {
                                         type="text"
                                         className="form-control form-control-sm"
                                         id="task-name"
+                                        defaultValue={task.name}
                                     />
                                 </div>
                                 <div className="myform-group mb-3">
@@ -73,9 +120,14 @@ const EditModal = () => {
                                         Completed:
                                     </label>
                                     <input
-                                        type="text"
-                                        className="form-control form-control-sm"
+                                        type="checkbox"
                                         id="completed"
+                                        style={{
+                                            width: "17px",
+                                            height: "17px",
+                                        }}
+                                        checked={checkValue}
+                                        onChange={handleChange}
                                     />
                                 </div>
                             </form>
@@ -83,8 +135,10 @@ const EditModal = () => {
                         <div style={{ width: "100%", padding: "0 20px 20px" }}>
                             <button
                                 type="submit"
+                                data-bs-dismiss="modal"
                                 style={{ width: "100%" }}
                                 className="btn btn-primary"
+                                onClick={handleSubmit}
                             >
                                 Edit
                             </button>

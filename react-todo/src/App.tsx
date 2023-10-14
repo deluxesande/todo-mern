@@ -6,15 +6,22 @@ import Task from "./components/Task";
 
 export const url = "http://localhost:3000";
 
+type Tasks = {
+    readonly _id: string;
+    name: string;
+    completed: boolean;
+    _v: number;
+};
+
 function App() {
-    type Tasks = {
-        _id: string;
-        name: string;
-        completed: boolean;
-        _v: number;
-    };
     const [tasks, setTasks] = useState([]);
     const [fetching, setFetching] = useState(true);
+    const [editTask, setEditTask] = useState({
+        _id: "",
+        name: "",
+        completed: false || true,
+        _v: 0,
+    });
 
     const fetchData = async () => {
         const response = await fetch(`${url}/api/v1/tasks/`, {
@@ -37,12 +44,21 @@ function App() {
             <div className="main-box">
                 <InputField setFetching={setFetching} />
 
+                {tasks.length === 0 ? (
+                    <p className="lead">No Tasks available</p>
+                ) : null}
+
                 {tasks.map((task: Tasks, index) => (
-                    <Task key={index} task={task} />
+                    <Task
+                        key={index}
+                        task={task}
+                        setEditTask={setEditTask}
+                        setFetching={setFetching}
+                    />
                 ))}
             </div>
 
-            <EditModal />
+            <EditModal task={editTask} setFetching={setFetching} />
         </div>
     );
 }

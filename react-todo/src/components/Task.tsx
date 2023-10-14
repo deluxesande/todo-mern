@@ -1,5 +1,7 @@
+import { url } from "../App";
+
 type Task = {
-    _id: string;
+    readonly _id: string;
     name: string;
     completed: boolean;
     _v: number;
@@ -7,10 +9,37 @@ type Task = {
 
 interface Props {
     task: Task;
+    setEditTask: React.Dispatch<
+        React.SetStateAction<{
+            _id: string;
+            name: string;
+            completed: boolean;
+            _v: number;
+        }>
+    >;
+    setFetching: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Task = ({ task }: Props) => {
+const Task = ({ task, setEditTask, setFetching }: Props) => {
     const icon_space = "15px";
+
+    const editTask = () => {
+        // Setting the task for the modal
+        setEditTask(task);
+    };
+
+    const handleDelete = () => {
+        fetch(`${url}/api/v1/tasks/${task._id}/`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        setFetching(true);
+
+        console.log("Task deleted");
+    };
+
     return (
         <div className="list-group">
             <div
@@ -33,6 +62,7 @@ const Task = ({ task }: Props) => {
                         }}
                         data-bs-toggle="modal"
                         data-bs-target="#editModal"
+                        onClick={editTask}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -60,6 +90,7 @@ const Task = ({ task }: Props) => {
                             outline: "none",
                             background: "transparent",
                         }}
+                        onClick={handleDelete}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
