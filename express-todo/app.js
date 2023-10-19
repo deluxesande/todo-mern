@@ -8,7 +8,7 @@ const app = express();
 
 app.use(
     cors({
-        origin: "https://todo-mern-frontend-ts.vercel.app/",
+        origin: "https://todo-mern-frontend-ts.vercel.app",
     })
 );
 
