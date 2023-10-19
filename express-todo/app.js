@@ -17,6 +17,12 @@ app.use("/api/v1/tasks", require("./routes/tasks"));
 
 app.use(errorHandlerMiddleware);
 
+app.get("/", (req, res) => {
+    res.status(200).json({
+        api: "https://todo-mern-api.vercel.app/api/v1/tasks",
+    });
+});
+
 const PORT = 3000;
 
 const start = async () => {
