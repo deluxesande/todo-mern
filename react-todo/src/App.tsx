@@ -4,7 +4,7 @@ import EditModal from "./components/EditModal";
 import InputField from "./components/InputField";
 import Task from "./components/Task";
 
-export const url = "http://localhost:3000";
+export const url = "https://todo-mern-api.vercel.app/";
 
 type Tasks = {
     readonly _id: string;
