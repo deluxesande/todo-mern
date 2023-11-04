@@ -37,7 +37,7 @@ const Task = ({ task, setEditTask, setFetching }: Props) => {
         });
         setFetching(true);
 
-        console.log("Task deleted");
+        // console.log("Task deleted");
     };
 
     return (
